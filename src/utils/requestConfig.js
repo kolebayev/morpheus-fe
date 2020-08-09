@@ -1,5 +1,7 @@
+// http://opencorpora.org/dict.php?act=gram
+
 const requestConfig = {
-  pos: [
+  post: [
     { label: "существительное", value: "NOUN" },
     { label: "прилагательное", value: "ADJF" },
     { label: "глагол", value: "VERB" },
@@ -7,11 +9,11 @@ const requestConfig = {
     { label: "числительное", value: "NUMR" },
     { label: "наречие", value: "ADVB" },
   ],
-  number: [
+  NMbr: [
     { label: "единственное", value: "sing" },
     { label: "множественное", value: "plur" },
   ],
-  gender: [
+  GNdr: [
     { label: "мужской", value: "masc" },
     { label: "женский", value: "femn" },
     { label: "средний", value: "neut" },

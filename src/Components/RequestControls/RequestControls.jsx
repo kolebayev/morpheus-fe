@@ -40,9 +40,9 @@ function RequestControls({ chat }) {
     <div className="request-controls">
       <div className="">
         <Radio.Group
-          options={requestConfig.pos}
+          options={requestConfig.post}
           onChange={(e) => setPos(e.target.value)}
-          value={requestConfig.pos[0].value}
+          value={requestConfig.post[0].value}
           buttonStyle="solid"
           optionType="button"
         />
