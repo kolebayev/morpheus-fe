@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import "./UploadJson.scss";
 
 function UploadJson({ getDataFromUpload, doSetStatus }) {
@@ -9,11 +9,12 @@ function UploadJson({ getDataFromUpload, doSetStatus }) {
     reader.readAsText(file);
     reader.onprogress = () => {
       // console.log("reading");
+      // getDataFromUpload(null);
       doSetStatus("isProcessing");
     };
-    reader.onload = () => {
+    reader.onload = async () => {
       // data = array of objects
-      let data = JSON.parse(reader.result);
+      let data = await JSON.parse(reader.result);
       getDataFromUpload(data.messages);
       doSetStatus("chooseUser");
       // console.log("ready");

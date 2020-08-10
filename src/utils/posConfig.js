@@ -1,6 +1,6 @@
 // http://opencorpora.org/dict.php?act=gram
 
-const requestConfig = {
+const posConfig = {
   post: [
     { label: "существительное", value: "NOUN" },
     { label: "прилагательное", value: "ADJF" },
@@ -20,4 +20,4 @@ const requestConfig = {
   ],
 };
 
-export default requestConfig;
+export default posConfig;

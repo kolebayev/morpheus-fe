@@ -2,96 +2,58 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Radio, Button, Select } from "antd";
 import { compareAsc, parse } from "date-fns";
 import getUserMessages from "../../utils/getUserMessages";
-import posConfig from "../../utils/posConfig";
+import requestConfig from "../../utils/requestConfig";
 import {
   inputDateStyle,
   formatDateForInput,
 } from "../../utils/formatDateForInput";
 import "./RequestControls.scss";
+// import Az from "az";
 
-function RequestControls({ controlsOptions }) {
-  const [finalUser, setFinalUser] = useState(null);
-  const [posRequestOptions, setPosRequestOptions] = useState({
-    post: posConfig.post[0].value,
-    NMbr: posConfig.NMbr[0].value,
-    GNdr: posConfig.GNdr[0].value,
-  });
+function RequestControls({ chat }) {
+  const [users, setUsers] = useState([]);
+  const [finalUser, setFinalUser] = useState("");
+  const [userMessages, setUserMessages] = useState([]);
+
+  const [post, setPost] = useState("NOUN");
   // валидатор периода дат
   const [rangeError, setRangeError] = useState(false);
   // даты из чата — валидные границы
   const [minDate, setMinDate] = useState(null);
   const [maxDate, setMaxDate] = useState(null);
   // выбранные даты
-  //   const [minSelectedDate, setMinSelectedDate] = useState(minDate);
-  //   const [maxSelectedDate, setMaxSelectedDate] = useState(minDate);
-  useEffect(() => {
-    setMinDate(controlsOptions.dates.min);
-    setMaxDate(controlsOptions.dates.max);
-    setFinalUser(controlsOptions.users[0]);
-  }, [controlsOptions]);
-  // //////////////////////// ———————————————————————————————————————————————
-
-  const [user, setUser] = useState("");
-  // выбранные даты
   const [minSelectedDate, setMinSelectedDate] = useState(minDate);
-  const [maxSelectedDate, setMaxSelectedDate] = useState(maxDate);
+  const [maxSelectedDate, setMaxSelectedDate] = useState(minDate);
 
   const { Option } = Select;
+
+  useEffect(() => {
+    if (chat !== null) {
+      // define users
+      let tempUsers = [];
+      chat.forEach((el) => {
+        "from" in el && tempUsers.push(el.from);
+      });
+      setUsers([...new Set(tempUsers)]);
+      setMinDate(new Date(chat[0].date));
+      setMaxDate(new Date(chat[chat.length - 1].date));
+    }
+  }, [chat]);
 
   return (
     <div className="request-controls">
       <div>
         <Select
-          defaultValue={posConfig.post[0].value}
+          defaultValue={requestConfig.post[0].value}
           style={{ width: 180 }}
-          onChange={(value) =>
-            setPosRequestOptions((prevState) => ({
-              ...prevState,
-              post: value,
-            }))
-          }
+          onChange={setPost}
         >
-          {posConfig.post.map((tag, i) => (
+          {requestConfig.post.map((tag, i) => (
             <Option key={i} value={tag.value}>
               {tag.label}
             </Option>
           ))}
         </Select>
-
-        <Select
-          defaultValue={posConfig.NMbr[0].value}
-          style={{ width: 180 }}
-          onChange={(value) => {
-            setPosRequestOptions((prevState) => ({
-              ...prevState,
-              NMbr: value,
-            }));
-          }}
-        >
-          {posConfig.NMbr.map((tag, i) => (
-            <Option key={i} value={tag.value}>
-              {tag.label}
-            </Option>
-          ))}
-        </Select>
-
-        <Select
-          defaultValue={posConfig.GNdr[0].value}
-          style={{ width: 180 }}
-          onChange={(value) => {
-            setPosRequestOptions((prevState) => ({
-              ...prevState,
-              GNdr: value,
-            }));
-          }}
-        >
-          {posConfig.GNdr.map((tag, i) => (
-            <Option key={i} value={tag.value}>
-              {tag.label}
-            </Option>
-          ))}
-        </Select>
-
         <div>
           <input
             type="date"
@@ -131,22 +93,34 @@ function RequestControls({ controlsOptions }) {
               }
             }}
           ></input>
-
           {rangeError && <span>range error</span>}
-
           <Button type="link" size={"default"}>
             даты по умолчанию
           </Button>
         </div>
-
         <Radio.Group
-          options={controlsOptions.users.map((user) => {
-            return { label: user, value: user };
-          })}
+          options={[
+            { label: "Apple", value: "Apple" },
+            { label: "Pear", value: "Pear" },
+          ]}
           onChange={(e) => setFinalUser(e.target.value)}
-          value={finalUser}
+          value={users[0] || finalUser}
           optionType="button"
         />
+        {/* {users.map((el, i) => (
+          <button
+            className="app_button"
+            onClick={() => {
+              // setStatus("isProcessing");
+              // findMessages(el);
+              let messages = getUserMessages(el, chat);
+              setUserMessages(messages);
+            }}
+            key={i}
+          >
+            {el}
+          </button>
+        ))} */}
       </div>
     </div>
   );
