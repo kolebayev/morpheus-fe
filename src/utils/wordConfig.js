@@ -1,6 +1,6 @@
 // http://opencorpora.org/dict.php?act=gram
 
-const posConfig = {
+const wordConfig = {
   post: [
     { label: "существительное", value: "NOUN" },
     { label: "прилагательное", value: "ADJF" },
@@ -19,5 +19,13 @@ const posConfig = {
     { label: "средний", value: "neut" },
   ],
 };
+// const post = [
+//   { label: "существительное", value: "NOUN" },
+//   { label: "прилагательное", value: "ADJF" },
+//   { label: "глагол", value: "VERB" },
+//   { label: "местоимение", value: "NPRO" },
+//   { label: "числительное", value: "NUMR" },
+//   { label: "наречие", value: "ADVB" },
+// ];
 
-export default posConfig;
+export default wordConfig;

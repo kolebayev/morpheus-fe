@@ -28,7 +28,7 @@ const getUserMessages = (user, chat) => {
     return item.text !== "";
   });
 
-  console.log(messagesOneByOne);
+  // console.log(messagesOneByOne);
 
   return messagesOneByOne;
 };
