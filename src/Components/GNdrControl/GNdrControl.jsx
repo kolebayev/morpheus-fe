@@ -1,14 +1,14 @@
 import React from "react";
 import { Select } from "antd";
 import wordConfig from "../../utils/wordConfig";
-import "./PosTagControl.scss";
+import "./GNdrControl.scss";
 
-export default function PosTagControl({ setValue }) {
+export default function GNdrControl({ setValue }) {
   const { Option } = Select;
-  const options = wordConfig.post;
+  const options = wordConfig.GNdr;
 
   return (
-    <div className="PosTagControl">
+    <div className="GNdrControl">
       <Select
         defaultValue={options[0].value}
         style={{ width: 180 }}

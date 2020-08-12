@@ -1,14 +1,14 @@
 import React from "react";
 import { Select } from "antd";
 import wordConfig from "../../utils/wordConfig";
-import "./PosTagControl.scss";
+import "./NMbrControl.scss";
 
-export default function PosTagControl({ setValue }) {
+export default function NMbrControl({ setValue }) {
   const { Option } = Select;
-  const options = wordConfig.post;
+  const options = wordConfig.NMbr;
 
   return (
-    <div className="PosTagControl">
+    <div className="NMbrControl">
       <Select
         defaultValue={options[0].value}
         style={{ width: 180 }}

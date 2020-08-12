@@ -24,13 +24,9 @@ const getUserMessages = (user, chat) => {
     );
   });
   // убирает пустые сообщения
-  messagesOneByOne = messagesOneByOne.filter((item) => {
+  return messagesOneByOne.filter((item) => {
     return item.text !== "";
   });
-
-  // console.log(messagesOneByOne);
-
-  return messagesOneByOne;
 };
 
 export default getUserMessages;

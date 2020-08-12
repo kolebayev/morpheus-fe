@@ -5,22 +5,39 @@ body {
 }
 
 .app {
-  // text-align: center;
-  margin: 0 20px;
-  // height: 100vh;
+  &_welcome {
+    padding: 0px 20px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    &_wrapper {
+      text-align: center;
+    }
+  }
+  &_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0px;
+  }
   &_controls {
     display: flex;
     flex-direction: column;
     text-align: left;
   }
-  &_button {
-    padding: 5px 10px;
-    margin-left: 10px;
-    // background-color: #ccc;
-    cursor: pointer;
-    border: none;
-    // &:last-child {
-    //   display: none;
-    // }
+  &_select {
+    display: flex;
+    flex-direction: column;
+    & > * {
+      margin-bottom: 12px;
+    }
+  }
+  &_layout {
+    max-width: 1024px;
+    margin: 0 auto;
   }
 }
