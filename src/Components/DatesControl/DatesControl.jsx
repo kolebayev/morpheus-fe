@@ -32,37 +32,43 @@ export default function DateControl({
   }, [maxSelectedDate, setEndDate]);
 
   return (
-    <div>
-      <input
-        type="date"
-        defaultValue={formatDateForInput(minDate)}
-        min={formatDateForInput(minDate)}
-        max={formatDateForInput(maxDate)}
-        onChange={(e) => {
-          const thisDate = parse(e.target.value, inputDateStyle, new Date());
-          if (compareAsc(thisDate, maxSelectedDate) === 1) {
-            setRangeError(true);
-          } else {
-            setMinSelectedDate(thisDate);
-            setRangeError(false);
-          }
-        }}
-      ></input>
-      <input
-        type="date"
-        defaultValue={formatDateForInput(maxDate)}
-        max={formatDateForInput(maxDate)}
-        min={formatDateForInput(minDate)}
-        onChange={(e) => {
-          const thisDate = parse(e.target.value, inputDateStyle, new Date());
-          if (compareAsc(minSelectedDate, thisDate) === 1) {
-            setRangeError(true);
-          } else {
-            setMaxSelectedDate(thisDate);
-            setRangeError(false);
-          }
-        }}
-      ></input>
-    </div>
+    <>
+      <div className="control">
+        <div className="control_top-label">Начало периода</div>
+        <input
+          type="date"
+          defaultValue={formatDateForInput(minDate)}
+          min={formatDateForInput(minDate)}
+          max={formatDateForInput(maxDate)}
+          onChange={(e) => {
+            const thisDate = parse(e.target.value, inputDateStyle, new Date());
+            if (compareAsc(thisDate, maxSelectedDate) === 1) {
+              setRangeError(true);
+            } else {
+              setMinSelectedDate(thisDate);
+              setRangeError(false);
+            }
+          }}
+        ></input>
+      </div>
+      <div className="control">
+        <div className="control_top-label">Конец периода</div>
+        <input
+          type="date"
+          defaultValue={formatDateForInput(maxDate)}
+          max={formatDateForInput(maxDate)}
+          min={formatDateForInput(minDate)}
+          onChange={(e) => {
+            const thisDate = parse(e.target.value, inputDateStyle, new Date());
+            if (compareAsc(minSelectedDate, thisDate) === 1) {
+              setRangeError(true);
+            } else {
+              setMaxSelectedDate(thisDate);
+              setRangeError(false);
+            }
+          }}
+        ></input>
+      </div>
+    </>
   );
 }

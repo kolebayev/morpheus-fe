@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "./Media/logo.svg";
 import { Button } from "antd";
-import "./App.scss";
+import { FileSaver, saveAs } from "file-saver";
+// import "./App.scss";
+import "./App.less";
 
 import wordConfig from "./utils/wordConfig";
 import getUserMessages from "./utils/getUserMessages";
@@ -26,6 +28,8 @@ export default function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [selectedUser, setSelectedUser] = useState(null);
+
+  const controlsSize = "default";
 
   useEffect(() => {
     if ((chat !== null) & (chat !== undefined)) {
@@ -85,63 +89,83 @@ export default function App() {
               />
             )}
           </div>
+          <div className="app_controls">
+            <div className="app_controls_section">
+              <PosTagControl
+                size={controlsSize}
+                setValue={(value) => setPost(value)}
+              />
+              <NMbrControl
+                size={controlsSize}
+                setValue={(value) => setNMbr(value)}
+              />
+              <GNdrControl
+                size={controlsSize}
+                setValue={(value) => setGNdr(value)}
+              />
+              <DateControl
+                defaultDates={contolDates}
+                setStartDate={(date) => setStartDate(date)}
+                setEndDate={(date) => setEndDate(date)}
+              />
+            </div>
+            <div className="app_controls_section">
+              <UserControl
+                users={controlUsers}
+                passFinalUser={(user) => setSelectedUser(user)}
+              />
+              <Button
+                type="primary"
+                size={controlsSize}
+                onClick={async () => {
+                  let data = JSON.stringify({
+                    post,
+                    NMbr,
+                    GNdr,
+                    messages,
+                    startDate,
+                    endDate,
+                  });
+                  var file = new File([data], "hello world.txt", {
+                    type: "text/plain;charset=utf-8",
+                  });
+                  console.log(file);
+                  let response = await fetch("/analyze", {
+                    method: "POST",
+                    headers: {
+                      "Content-type": "application/json",
+                      // "Content-Length": data.length,
+                    },
+                    body: data,
+                  });
+                  if (response.ok) {
+                    let json = await response.json();
+                    console.log(json);
+                  } else {
+                    console.log("Ошибка HTTP: " + response.status);
+                  }
+
+                  // var blob = new Blob(["Hello, world!"], {
+                  //   type: "text/plain;charset=utf-8",
+                  // });
+                  // FileSaver.saveAs(blob, "hello world.txt");
+                  // console.log(
+                  //   "end",
+                  //   post,
+                  //   NMbr,
+                  //   GNdr,
+                  //   messages,
+                  //   startDate,
+                  //   endDate
+                  // );
+                }}
+              >
+                Морфиусировать
+              </Button>
+            </div>
+          </div>
         </div>
       )}
-
-      {/* <div class="app_header">
-        <Logo style={{ marginTop: "20px" }} />
-        {chat != null && (
-          <UploadJson
-            type="button"
-            getDataFromUpload={(chat) => {
-              setChat([...chat]);
-            }}
-          />
-        )}
-      </div>
-      <div className="app_controls">
-        {chat === null && (
-          <UploadJson
-            type="area"
-            getDataFromUpload={(chat) => {
-              setChat([...chat]);
-            }}
-          />
-        )}
-        {chat != null && (
-          <div className="app_select">
-            <PosTagControl setValue={(value) => setPost(value)} />
-            <NMbrControl setValue={(value) => setNMbr(value)} />
-            <GNdrControl setValue={(value) => setGNdr(value)} />
-            <DateControl
-              defaultDates={contolDates}
-              setStartDate={(date) => setStartDate(date)}
-              setEndDate={(date) => setEndDate(date)}
-            />
-            <UserControl
-              users={controlUsers}
-              passFinalUser={(user) => setSelectedUser(user)}
-            />
-            <Button
-              type="primary"
-              size={"default"}
-              onClick={() => {
-                console.log(
-                  "end",
-                  post,
-                  NMbr,
-                  GNdr,
-                  messages,
-                  startDate,
-                  endDate
-                );
-              }}
-            >
-              Анализировать
-            </Button>
-          </div>
-        )}
-      </div> */}
     </div>
   );
 }

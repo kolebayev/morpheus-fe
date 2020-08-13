@@ -19,3 +19,14 @@
 .ant-upload-drag-container {
   padding: 0px 40px;
 }
+
+.upload {
+  &_button {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  &_file-name {
+    margin-right: 12px;
+  }
+}

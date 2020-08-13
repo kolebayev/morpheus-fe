@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Radio } from "antd";
 import "./UserControl.scss";
 
-export default function UserControl({ users, passFinalUser }) {
+export default function UserControl({ users, passFinalUser, size }) {
   const [value, setValue] = useState(null);
 
   useEffect(() => {
@@ -14,8 +14,10 @@ export default function UserControl({ users, passFinalUser }) {
   //   }, [value]);
 
   return (
-    <div className="UserControl">
+    <div className="UserControl control">
+      <div className="control_top-label">Участник чата</div>
       <Radio.Group
+        size={size}
         options={users.map((user) => {
           return { label: user, value: user };
         })}

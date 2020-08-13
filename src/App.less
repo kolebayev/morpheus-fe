@@ -1,4 +1,5 @@
-@import "~antd/dist/antd.css";
+// @import "~antd/dist/antd.css";
+@import "~antd/dist/antd.less";
 
 body {
   margin: 0;
@@ -28,16 +29,32 @@ body {
     display: flex;
     flex-direction: column;
     text-align: left;
-  }
-  &_select {
-    display: flex;
-    flex-direction: column;
-    & > * {
-      margin-bottom: 12px;
+    &_section {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+      & > * {
+        margin-right: 20px;
+      }
+      &:last-child {
+        align-items: flex-end;
+      }
     }
   }
   &_layout {
     max-width: 1024px;
     margin: 0 auto;
+  }
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  color: #fff;
+}
+
+.control {
+  &_top-label {
+    font-size: 10px;
+    // line-height: 15px;
+    margin-bottom: 4px;
   }
 }
