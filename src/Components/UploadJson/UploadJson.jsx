@@ -1,50 +1,53 @@
-import React, { useState } from "react";
-import { Upload, Button, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import JsonIcon from "../../Icons/JsonIcon";
-import "./UploadJson.scss";
+import React, { useState } from 'react'
+import { Upload, Button, message } from 'antd'
 
-export default function UploadJson({ getDataFromUpload, type }) {
-  const { Dragger } = Upload;
-  const [fileName, setFileName] = useState("");
+import JsonIcon from '../../Icons/JsonIcon'
+import './UploadJson.scss'
+
+export default function UploadJson({
+  getDataFromUpload,
+  type,
+  doSetIsLoading,
+}) {
+  const { Dragger } = Upload
+  const [fileName, setFileName] = useState('')
 
   const props = {
-    accept: ".json",
+    accept: '.json',
     showUploadList: false,
     multiple: false,
     transformFile(file) {
-      setFileName(file.name);
+      setFileName(file.name)
       return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsText(file);
+        const reader = new FileReader()
+        reader.readAsText(file)
         reader.onprogress = () => {
-          console.log("reading");
-        };
+          console.log('reading')
+          doSetIsLoading('true')
+        }
         reader.onloadend = () => {
-          let data = JSON.parse(reader.result);
+          let data = JSON.parse(reader.result)
           Array.isArray(data.messages)
             ? getDataFromUpload(data.messages)
-            : message.error("Ошибка в json файле");
-        };
+            : message.error('Ошибка в json файле')
+          doSetIsLoading('false')
+        }
         reader.onerror = () => {
-          console.log(reader.error);
-          message.error("Ошибка чтения json файла");
-        };
-      });
+          console.log(reader.error)
+          message.error('Ошибка чтения json файла')
+        }
+      })
     },
-  };
+  }
 
   const button = (
     <div className="upload_button">
       <div className="upload_file-name">{fileName}</div>
       <Upload {...props}>
-        <Button>
-          {/* <UploadOutlined /> */}
-          Загрузить другой файл
-        </Button>
+        <Button>Загрузить другой файл</Button>
       </Upload>
     </div>
-  );
+  )
 
   const area = (
     <Dragger {...props} name={fileName}>
@@ -56,10 +59,10 @@ export default function UploadJson({ getDataFromUpload, type }) {
         или перетащи в неё json файл
       </div>
     </Dragger>
-  );
+  )
 
   return {
     button,
     area,
-  }[type];
+  }[type]
 }
