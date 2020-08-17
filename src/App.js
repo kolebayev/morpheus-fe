@@ -16,6 +16,7 @@ import DateControl from "./Components/DatesControl/DatesControl";
 import UserControl from "./Components/UserControl/UserControl";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const [chat, setChat] = useState(null);
   // controls options
   const [controlUsers, setControlUsers] = useState([]);
@@ -118,6 +119,8 @@ export default function App() {
                 type="primary"
                 size={controlsSize}
                 onClick={async () => {
+                  await setIsLoading(true);
+                  console.log(isLoading);
                   let data = JSON.stringify({
                     post,
                     NMbr,
@@ -126,10 +129,10 @@ export default function App() {
                     startDate,
                     endDate,
                   });
-                  var file = new File([data], "hello world.txt", {
-                    type: "text/plain;charset=utf-8",
-                  });
-                  console.log(file);
+                  // var file = new File([data], "hello world.txt", {
+                  //   type: "text/plain;charset=utf-8",
+                  // });
+                  console.log(startDate, endDate);
                   let response = await fetch("/analyze", {
                     method: "POST",
                     headers: {
@@ -141,23 +144,11 @@ export default function App() {
                   if (response.ok) {
                     let json = await response.json();
                     console.log(json);
+                    setIsLoading(false);
+                    console.log(isLoading);
                   } else {
                     console.log("Ошибка HTTP: " + response.status);
                   }
-
-                  // var blob = new Blob(["Hello, world!"], {
-                  //   type: "text/plain;charset=utf-8",
-                  // });
-                  // FileSaver.saveAs(blob, "hello world.txt");
-                  // console.log(
-                  //   "end",
-                  //   post,
-                  //   NMbr,
-                  //   GNdr,
-                  //   messages,
-                  //   startDate,
-                  //   endDate
-                  // );
                 }}
               >
                 Морфиусировать
