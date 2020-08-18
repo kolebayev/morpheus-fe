@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <div className="header">
       <Logo style={{ marginBottom: '10px' }} />
-      <UploadJson type="area" />
+      <UploadJson type="button" />
     </div>
   )
 }

@@ -5,10 +5,11 @@ import { Button, Spin } from 'antd'
 import './App.less'
 
 import Welcome from './Components/Welcome/Welcome'
+import Header from './Components/Header/Header'
+import { useStoreState } from 'easy-peasy'
 
 import wordConfig from './utils/wordConfig'
 import getUserMessages from './utils/getUserMessages'
-
 import UploadJson from './Components/UploadJson/UploadJson'
 import PosTagControl from './Components/PosTagControl/PosTagControl'
 import NMbrControl from './Components/NMbrControl/NMbrControl'
@@ -19,7 +20,7 @@ import UserControl from './Components/UserControl/UserControl'
 export default function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState([])
-  const [chat, setChat] = useState(null)
+  // const [chat, setChat] = useState(null)
   // controls options
   const [controlUsers, setControlUsers] = useState([])
   const [contolDates, setControlDates] = useState({})
@@ -31,8 +32,9 @@ export default function App() {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [selectedUser, setSelectedUser] = useState(null)
-
   const controlsSize = 'default'
+
+  const chatLength = useStoreState((state) => state.entry.chat.length)
 
   // useEffect(() => {
   //   if ((chat !== null) & (chat !== undefined)) {
@@ -67,7 +69,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Welcome />
+      {chatLength === 0 ? <Welcome /> : <Header />}
       {/* {chat === null ? (
         <div className="app_welcome">
           <div className="app_welcome_wrapper">
