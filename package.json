@@ -10,6 +10,7 @@
     "craco": "0.0.3",
     "craco-less": "^1.17.0",
     "date-fns": "^2.15.0",
+    "easy-peasy": "^3.3.1",
     "file-saver": "^2.0.2",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
