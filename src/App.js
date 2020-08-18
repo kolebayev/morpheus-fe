@@ -4,6 +4,8 @@ import { Button, Spin } from 'antd'
 // import "./App.scss";
 import './App.less'
 
+import Welcome from './Components/Welcome/Welcome'
+
 import wordConfig from './utils/wordConfig'
 import getUserMessages from './utils/getUserMessages'
 
@@ -32,40 +34,41 @@ export default function App() {
 
   const controlsSize = 'default'
 
-  useEffect(() => {
-    if ((chat !== null) & (chat !== undefined)) {
-      let users = [
-        ...new Set(
-          chat.map((msg) => {
-            if (
-              ('from' in msg) &
-              (msg.from !== undefined) &
-              (msg.from !== null)
-            ) {
-              return msg.from
-            }
-          })
-        ),
-      ].filter((user) => user !== undefined)
+  // useEffect(() => {
+  //   if ((chat !== null) & (chat !== undefined)) {
+  //     let users = [
+  //       ...new Set(
+  //         chat.map((msg) => {
+  //           if (
+  //             ('from' in msg) &
+  //             (msg.from !== undefined) &
+  //             (msg.from !== null)
+  //           ) {
+  //             return msg.from
+  //           }
+  //         })
+  //       ),
+  //     ].filter((user) => user !== undefined)
 
-      setSelectedUser(users[0])
-      setControlUsers(users)
-      setControlDates({
-        min: new Date(chat[0].date),
-        max: new Date(chat[chat.length - 1].date),
-      })
-    }
-  }, [chat])
+  //     setSelectedUser(users[0])
+  //     setControlUsers(users)
+  //     setControlDates({
+  //       min: new Date(chat[0].date),
+  //       max: new Date(chat[chat.length - 1].date),
+  //     })
+  //   }
+  // }, [chat])
 
-  useEffect(() => {
-    if ((chat !== null) & (chat !== undefined)) {
-      setMessages(getUserMessages(selectedUser, chat))
-    }
-  }, [selectedUser])
+  // useEffect(() => {
+  //   if ((chat !== null) & (chat !== undefined)) {
+  //     setMessages(getUserMessages(selectedUser, chat))
+  //   }
+  // }, [selectedUser])
 
   return (
     <div className="app">
-      {chat === null ? (
+      <Welcome />
+      {/* {chat === null ? (
         <div className="app_welcome">
           <div className="app_welcome_wrapper">
             <Logo style={{ marginBottom: '10px' }} />
@@ -167,7 +170,7 @@ export default function App() {
             {isLoading === true && <Spin size="large" />}
           </div>
         </>
-      )}
+      )} */}
     </div>
   )
 }
