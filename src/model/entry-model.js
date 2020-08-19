@@ -21,7 +21,7 @@ const entryModel = {
     GNdr: wordConfig.GNdr,
   },
   isLoading: false,
-  fileName: '',
+  // fileName: '',
 
   // actions
   setDataFromJson: action((state, data) => {

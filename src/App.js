@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { ReactComponent as Logo } from './Media/logo.svg'
-import { Button, Spin } from 'antd'
+import { Button, Spin, DatePicker } from 'antd'
 // import "./App.scss";
 import './App.less'
 
 import Welcome from './Components/Welcome/Welcome'
 import Header from './Components/Header/Header'
+import ControlsPanel from './Components/ControlsPanel/ControlsPanel'
 import { useStoreState } from 'easy-peasy'
 
 import wordConfig from './utils/wordConfig'
@@ -32,7 +33,6 @@ export default function App() {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [selectedUser, setSelectedUser] = useState(null)
-  const controlsSize = 'default'
 
   const chatLength = useStoreState((state) => state.entry.chat.length)
 
@@ -69,7 +69,14 @@ export default function App() {
 
   return (
     <div className="app">
-      {chatLength === 0 ? <Welcome /> : <Header />}
+      {chatLength === 0 ? (
+        <Welcome />
+      ) : (
+        <>
+          <Header />
+          <ControlsPanel />
+        </>
+      )}
       {/* {chat === null ? (
         <div className="app_welcome">
           <div className="app_welcome_wrapper">

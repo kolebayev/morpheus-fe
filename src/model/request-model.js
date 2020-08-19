@@ -1,6 +1,8 @@
 // финальная выборка для запроса
 // post, NMbr, GNdr, messages, startDate, endDate ...
 
+import { action } from 'easy-peasy'
+
 const requestModel = {
   // настройки для az.js из контролов
   word: {
@@ -11,9 +13,18 @@ const requestModel = {
   // массив слов из сообщений юзера
   filteredMessages: [],
   // начало периода в запросе
-  rangeStart: new Date(),
+  rangeStart: '',
   // конец периода в запросе
-  rangeEnd: new Date(),
+  rangeEnd: '',
+
+  // actions
+  setRangeStart: action((state, data) => {
+    state.rangeStart = data
+  }),
+
+  setRangeEnd: action((state, data) => {
+    state.rangeEnd = data
+  }),
 }
 
 export default requestModel
