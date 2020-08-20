@@ -12,8 +12,8 @@ const entryModel = {
     users: [],
     // первая и посоледняя даты чата
     dates: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: '',
+      endDate: '',
     },
     // часть речи
     post: wordConfig.post,

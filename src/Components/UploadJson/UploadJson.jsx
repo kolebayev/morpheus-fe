@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Upload, Button, message } from 'antd'
 
 import JsonIcon from '../../Icons/JsonIcon'
@@ -6,7 +6,7 @@ import './UploadJson.scss'
 
 import { useStoreActions } from 'easy-peasy'
 
-export default function UploadJson({ getDataFromUpload, type }) {
+export default function UploadJson({ type }) {
   const { Dragger } = Upload
 
   const setChat = useStoreActions((actions) => actions.entry.setDataFromJson)

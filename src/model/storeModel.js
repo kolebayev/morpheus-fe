@@ -1,12 +1,12 @@
 // easy-peasy model entry file
 import entryModel from './entry-model'
 import requestModel from './request-model'
-import resultModel from './result-model'
+import responseModel from './response-model'
 
 const storeModel = {
   entry: entryModel,
   request: requestModel,
-  result: resultModel,
+  response: responseModel,
 }
 
 export default storeModel

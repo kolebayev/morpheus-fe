@@ -16,12 +16,16 @@ export default function DateControl(props) {
     (actions) => actions.request.setRangeStart
   )
   const setRangeEnd = useStoreActions((actions) => actions.request.setRangeEnd)
+  const setRangeDateAsString = (date) => {
+    return moment(date).format(dateFormat)
+  }
 
   // хук добавляет крайние даты в requestModel как рабочие
-  // на случай, если даты в RangePicker не поменяются
+  // на случай, если даты в RangePicker не поменяются юзером
+  // то есть при обновлении стейта после загрузки очередного jsonа
   useEffect(() => {
-    setRangeStart(start)
-    setRangeEnd(end)
+    setRangeStart(setRangeDateAsString(start))
+    setRangeEnd(setRangeDateAsString(end))
   }, [start, end, setRangeStart, setRangeEnd])
 
   const rangePickerProps = {
@@ -38,9 +42,8 @@ export default function DateControl(props) {
     autoFocus: false,
     size: controlsSize === 'default' ? 'middle' : 'large',
     onCalendarChange([rangeStart, rangeEnd]) {
-      console.log('moment1', rangeStart._d)
-      console.log('moment2', rangeEnd._d)
-      console.log('onCalendarChange')
+      setRangeStart(setRangeDateAsString(rangeStart))
+      setRangeEnd(setRangeDateAsString(rangeEnd))
     },
     separator: '|',
   }

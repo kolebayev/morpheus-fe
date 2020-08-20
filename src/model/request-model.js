@@ -1,14 +1,14 @@
 // финальная выборка для запроса
 // post, NMbr, GNdr, messages, startDate, endDate ...
 
-import { action } from 'easy-peasy'
+import { action, thunk } from 'easy-peasy'
 
 const requestModel = {
   // настройки для az.js из контролов
   word: {
-    post: '',
-    NMbr: '',
-    GNdr: '',
+    post: 'noun',
+    NMbr: 'sing',
+    GNdr: 'masc',
   },
   // массив слов из сообщений юзера
   filteredMessages: [],
@@ -17,6 +17,10 @@ const requestModel = {
   // конец периода в запросе
   rangeEnd: '',
 
+  // юзер, по которому собраны сообщения
+  // на бэк не отправляется
+  userFilteredBy: '',
+
   // actions
   setRangeStart: action((state, data) => {
     state.rangeStart = data
@@ -24,6 +28,36 @@ const requestModel = {
 
   setRangeEnd: action((state, data) => {
     state.rangeEnd = data
+  }),
+
+  setUserFilteredBy: action((state, data) => {
+    state.userFIlteredBy = data
+  }),
+
+  setFilteredMessages: action((state, data) => {
+    state.filteredMessages = [...data]
+  }),
+
+  performRequest: thunk(async (actions, payload) => {
+    console.log(payload)
+
+    let data = JSON.stringify({
+      ...payload,
+    })
+
+    let response = await fetch('/analyze', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: data,
+    })
+    if (response.ok) {
+      let json = await response.json()
+      console.log(json.words)
+    } else {
+      console.log('Ошибка HTTP: ' + response.status)
+    }
   }),
 }
 
