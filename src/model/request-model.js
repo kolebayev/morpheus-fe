@@ -31,34 +31,34 @@ const requestModel = {
   }),
 
   setUserFilteredBy: action((state, data) => {
-    state.userFIlteredBy = data
+    state.userFilteredBy = data
   }),
 
   setFilteredMessages: action((state, data) => {
-    state.filteredMessages = [...data]
+    state.filteredMessages = data
   }),
 
-  performRequest: thunk(async (actions, payload) => {
-    console.log(payload)
+  // performRequest: thunk(async (actions, payload) => {
+  //   console.log('payload', payload)
 
-    let data = JSON.stringify({
-      ...payload,
-    })
+  //   let data = JSON.stringify({
+  //     ...payload,
+  //   })
 
-    let response = await fetch('/analyze', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: data,
-    })
-    if (response.ok) {
-      let json = await response.json()
-      console.log(json.words)
-    } else {
-      console.log('Ошибка HTTP: ' + response.status)
-    }
-  }),
+  //   let response = await fetch('/analyze', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //     },
+  //     body: data,
+  //   })
+  //   if (response.ok) {
+  //     let json = await response.json()
+  //     console.log(json.words)
+  //   } else {
+  //     console.log('Ошибка HTTP: ' + response.status)
+  //   }
+  // }),
 }
 
 export default requestModel

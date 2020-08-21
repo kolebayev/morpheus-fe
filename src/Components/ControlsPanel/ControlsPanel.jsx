@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import './ControlsPanel.scss'
 import { Button } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
-import getUserMessages from '../../utils/getUserMessages'
+// import getUserMessages from '../../utils/getUserMessages'
 
 import DateControl from '../DatesControl/DatesControl'
 import PosTagControl from '../PosTagControl/PosTagControl'
@@ -15,47 +15,59 @@ export default function ControlsPanel() {
 
   const chat = useStoreState((state) => state.entry.chat)
   const userFilteredBy = useStoreState((state) => state.request.userFilteredBy)
-  const setFilteredMessages = useStoreActions(
-    (actions) => actions.request.setFilteredMessages
-  )
-  const performRequest = useStoreActions(
-    (actions) => actions.request.performRequest
-  )
+
   const word = useStoreState((state) => state.request.word)
-  const filteredMessages = useStoreState(
-    (state) => state.request.filteredMessages
-  )
   const rangeStart = useStoreState((state) => state.request.rangeStart)
   const rangeEnd = useStoreState((state) => state.request.rangeEnd)
 
-  const doRequest = useCallback(async () => {
-    await setFilteredMessages(getUserMessages(userFilteredBy, chat))
-    // performRequest({
-    //   post: word.post,
-    //   NMbr: word.NMbr,
-    //   GNdr: word.GNdr,
-    //   filteredMessages: filteredMessages,
-    //   rangeStart: rangeStart,
-    //   rangeEnd: rangeEnd,
-    // })
-  }, [
-    chat,
-    setFilteredMessages,
-    userFilteredBy,
-    // performRequest,
-    // word.post,
-    // word.NMbr,
-    // word.GNdr,
-    // filteredMessages,
-    // rangeStart,
-    // rangeEnd,
-  ])
+  const getUserMessages = (user, chat) => {
+    // выбирает сообщения конкретного юзера
+    let messages = chat.filter(
+      (message) => (message.from === user) & (typeof message.text === 'string')
+    )
+    // удаляет ненужные ключи из каждого объекта сообщений
+    const validKeys = ['date', 'text']
+    messages.forEach((el) => {
+      Object.keys(el).forEach(
+        (key) => validKeys.includes(key) || delete el[key]
+      )
+    })
+    // разбивает сообщения на слова и создает новый пословный массив объектов
+    // очищает сообщения от знаков препинания и цифр, оставляет только русские буквы
+    let messagesOneByOne = []
+    messages.forEach((message) => {
+      let words = message.text.split(' ')
+      const leaveOnlyLetters = new RegExp(/[^а-яА-Я-]+/g)
+      messagesOneByOne.push(
+        ...words.map((word) => {
+          return {
+            date: message.date,
+            text: word.replace(leaveOnlyLetters, ''),
+          }
+        })
+      )
+    })
+    // убирает пустые сообщения
+    let clear = messagesOneByOne.filter((item) => {
+      return item.text !== ''
+    })
+
+    return clear
+  }
+
+  const doRequest = () => {
+    console.log('——————————')
+    console.log('userFilteredBy', userFilteredBy)
+    console.log('chat', chat)
+    console.log('getUserMessages', getUserMessages(userFilteredBy, chat))
+    console.log('doRequest')
+  }
 
   return (
     <div className="controls-panel">
       <DateControl controlsSize={controlsSize} />
       <UserControl controlsSize={controlsSize} />
-      <Button type="primary" size="middle" onClick={doRequest}>
+      <Button type="primary" size="middle" onClick={() => doRequest()}>
         do morpheus
       </Button>
     </div>

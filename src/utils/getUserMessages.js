@@ -1,32 +1,37 @@
+// user - string
+// chat array of objects
+
 const getUserMessages = (user, chat) => {
   // выбирает сообщения конкретного юзера
   let messages = chat.filter(
-    (message) => (message.from === user) & (typeof message.text === "string")
-  );
+    (message) => (message.from === user) & (typeof message.text === 'string')
+  )
   // удаляет ненужные ключи из каждого объекта сообщений
-  const validKeys = ["date", "text"];
+  const validKeys = ['date', 'text']
   messages.forEach((el) => {
-    Object.keys(el).forEach((key) => validKeys.includes(key) || delete el[key]);
-  });
+    Object.keys(el).forEach((key) => validKeys.includes(key) || delete el[key])
+  })
   // разбивает сообщения на слова и создает новый пословный массив объектов
   // очищает сообщения от знаков препинания и цифр, оставляет только русские буквы
-  let messagesOneByOne = [];
+  let messagesOneByOne = []
   messages.forEach((message) => {
-    let words = message.text.split(" ");
-    const leaveOnlyLetters = new RegExp(/[^а-яА-Я-]+/g);
+    let words = message.text.split(' ')
+    const leaveOnlyLetters = new RegExp(/[^а-яА-Я-]+/g)
     messagesOneByOne.push(
       ...words.map((word) => {
         return {
           date: message.date,
-          text: word.replace(leaveOnlyLetters, ""),
-        };
+          text: word.replace(leaveOnlyLetters, ''),
+        }
       })
-    );
-  });
+    )
+  })
   // убирает пустые сообщения
-  return messagesOneByOne.filter((item) => {
-    return item.text !== "";
-  });
-};
+  let clear = messagesOneByOne.filter((item) => {
+    return item.text !== ''
+  })
 
-export default getUserMessages;
+  return clear
+}
+
+export default getUserMessages
