@@ -4,7 +4,7 @@ import { action } from 'easy-peasy'
 import wordConfig from '../utils/wordConfig'
 
 const entryModel = {
-  // чат импортированный из json
+  // чат, импортированный из json
   chat: [],
   // для контролов
   controls: {
@@ -40,7 +40,7 @@ const entryModel = {
       }
     }
     messages.forEach(clearFromLinks)
-    state.chat = [...messages.filter(clearFromEmptyStrings)]
+    state.chat.push(...messages.filter(clearFromEmptyStrings))
 
     let users = [
       ...new Set(
@@ -55,7 +55,7 @@ const entryModel = {
         })
       ),
     ].filter((user) => user !== undefined)
-    state.controls.users = [...users]
+    state.controls.users.push(...users)
 
     state.controls.dates.startDate = messages[0].date
     state.controls.dates.endDate = messages[messages.length - 1].date

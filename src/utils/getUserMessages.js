@@ -2,8 +2,9 @@
 // chat array of objects
 
 const getUserMessages = (user, chat) => {
+  console.log('getUserMessages executed')
   // выбирает сообщения конкретного юзера
-  let messages = chat.filter(
+  let messages = [...chat].filter(
     (message) => (message.from === user) & (typeof message.text === 'string')
   )
   // удаляет ненужные ключи из каждого объекта сообщений

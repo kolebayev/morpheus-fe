@@ -24,9 +24,14 @@ export default function DateControl(props) {
   // на случай, если даты в RangePicker не поменяются юзером
   // то есть при обновлении стейта после загрузки очередного jsonа
   useEffect(() => {
+    console.log('dates control / effect / setRangeStart')
     setRangeStart(setRangeDateAsString(start))
+  }, [start, setRangeStart])
+
+  useEffect(() => {
+    console.log('dates control / effect / setRangeEnd')
     setRangeEnd(setRangeDateAsString(end))
-  }, [start, end, setRangeStart, setRangeEnd])
+  }, [end, setRangeEnd])
 
   const rangePickerProps = {
     disabledDate(current) {

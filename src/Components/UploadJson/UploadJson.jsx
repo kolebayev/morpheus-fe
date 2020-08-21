@@ -1,16 +1,12 @@
 import React from 'react'
 import { Upload, Button, message } from 'antd'
-
 import JsonIcon from '../../Icons/JsonIcon'
 import './UploadJson.scss'
-
 import { useStoreActions } from 'easy-peasy'
 
 export default function UploadJson({ type }) {
   const { Dragger } = Upload
-
   const setChat = useStoreActions((actions) => actions.entry.setDataFromJson)
-
   const props = {
     accept: '.json',
     showUploadList: false,
@@ -24,9 +20,11 @@ export default function UploadJson({ type }) {
         }
         reader.onloadend = () => {
           let data = JSON.parse(reader.result)
-          ;('messages' in data) & (data.messages.length !== 0)
-            ? setChat(data)
-            : message.error('Ошибка в json файле')
+          if (('messages' in data) & (data.messages.length !== 0)) {
+            setChat(data)
+          } else {
+            message.error('Ошибка в json файле')
+          }
         }
         reader.onerror = () => {
           console.log(reader.error)

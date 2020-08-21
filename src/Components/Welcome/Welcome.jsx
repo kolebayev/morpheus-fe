@@ -7,7 +7,7 @@ export default function Welcome() {
   return (
     <div className="welcome">
       <div className="welcome_wrapper">
-        {/* <Logo style={{ marginBottom: '10px' }} /> */}
+        <Logo style={{ marginBottom: '10px' }} />
         <UploadJson type="area" />
       </div>
     </div>
