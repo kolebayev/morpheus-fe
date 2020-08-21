@@ -2,12 +2,11 @@
 // post, NMbr, GNdr, messages, startDate, endDate ...
 
 import { action, thunk } from 'easy-peasy'
-import getUserMessages from '../utils/getUserMessages'
 
 const requestModel = {
   // настройки для az.js из контролов
   word: {
-    post: 'noun',
+    post: 'NOUN',
     NMbr: 'sing',
     GNdr: 'masc',
   },
@@ -35,16 +34,8 @@ const requestModel = {
     state.userFilteredBy = data
   }),
 
-  setFilteredMessages: action((state, data) => {
-    state.filteredMessages.length = 0
-    let filteredArray = getUserMessages(data[0], [...data[1]])
-    state.filteredMessages.push(...filteredArray)
-  }),
-
   performRequest: thunk(async (actions, payload) => {
-    console.log('payload', payload)
-
-    let data = JSON.stringify(payload)
+    let data = JSON.stringify({ ...payload })
 
     let response = await fetch('/analyze', {
       method: 'POST',
@@ -55,7 +46,7 @@ const requestModel = {
     })
     if (response.ok) {
       let json = await response.json()
-      console.log(json.words)
+      console.log('json.words', json.words)
     } else {
       console.log('Ошибка HTTP: ' + response.status)
     }

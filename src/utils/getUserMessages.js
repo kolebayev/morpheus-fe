@@ -2,16 +2,17 @@
 // chat array of objects
 
 const getUserMessages = (user, chat) => {
-  console.log('getUserMessages executed')
   // выбирает сообщения конкретного юзера
   let messages = [...chat].filter(
     (message) => (message.from === user) & (typeof message.text === 'string')
   )
+
   // удаляет ненужные ключи из каждого объекта сообщений
   const validKeys = ['date', 'text']
   messages.forEach((el) => {
     Object.keys(el).forEach((key) => validKeys.includes(key) || delete el[key])
   })
+
   // разбивает сообщения на слова и создает новый пословный массив объектов
   // очищает сообщения от знаков препинания и цифр, оставляет только русские буквы
   let messagesOneByOne = []
@@ -27,10 +28,12 @@ const getUserMessages = (user, chat) => {
       })
     )
   })
+
   // убирает пустые сообщения
   let clear = messagesOneByOne.filter((item) => {
     return item.text !== ''
   })
+  console.log(chat)
 
   return clear
 }

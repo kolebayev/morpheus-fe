@@ -13,18 +13,35 @@ import UserControl from '../UserControl/UserControl'
 export default function ControlsPanel() {
   const controlsSize = 'default'
 
-  const getChat = useStoreState((state) => state.entry.chat)
+  const messagesOfAllUers = useStoreState((state) => state.entry.chat)
   const getUser = useStoreState((state) => state.request.userFilteredBy)
+  const performRequest = useStoreActions(
+    (action) => action.request.performRequest
+  )
 
-  const [ch, setCh] = useState([])
-
-  useEffect(() => {
-    setCh([...getChat])
-  }, [getChat])
+  const rangeStart = useStoreState((state) => state.request.rangeStart)
+  const rangeEnd = useStoreState((state) => state.request.rangeEnd)
+  const word = useStoreState((state) => state.request.word)
 
   const doRequest = () => {
-    console.log(ch)
-    console.log(getUserMessages(getUser, ch))
+    console.log('ch,', messagesOfAllUers)
+    console.log(
+      [...messagesOfAllUers].filter(
+        (message) =>
+          (message.from === getUser) & (typeof message.text === 'string')
+      )
+    )
+    performRequest({
+      rangeStart: rangeStart,
+      rangeEnd: rangeEnd,
+      post: word.post,
+      NMbr: word.NMbr,
+      GNdr: word.GNdr,
+      filteredMessages: [...messagesOfAllUers].filter(
+        (message) =>
+          (message.from === getUser) & (typeof message.text === 'string')
+      ),
+    })
   }
 
   return (
