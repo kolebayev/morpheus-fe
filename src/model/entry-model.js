@@ -40,6 +40,7 @@ const entryModel = {
       }
     }
     messages.forEach(clearFromLinks)
+    state.chat.length = 0
     state.chat.push(...messages.filter(clearFromEmptyStrings))
 
     let users = [
@@ -55,6 +56,7 @@ const entryModel = {
         })
       ),
     ].filter((user) => user !== undefined)
+    state.controls.users.length = 0
     state.controls.users.push(...users)
 
     state.controls.dates.startDate = messages[0].date

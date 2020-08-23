@@ -34,9 +34,20 @@ const requestModel = {
     state.userFilteredBy = data
   }),
 
+  setPost: action((state, data) => {
+    state.word.post = data
+  }),
+
+  setNMbr: action((state, data) => {
+    state.word.NMbr = data
+  }),
+
+  setGNdr: action((state, data) => {
+    state.word.GNdr = data
+  }),
+
   performRequest: thunk(async (actions, payload) => {
     let data = JSON.stringify({ ...payload })
-
     let response = await fetch('/analyze', {
       method: 'POST',
       headers: {
