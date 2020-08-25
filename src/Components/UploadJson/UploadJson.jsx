@@ -7,12 +7,16 @@ import { useStoreActions } from 'easy-peasy'
 export default function UploadJson({ type }) {
   const { Dragger } = Upload
   const setChat = useStoreActions((actions) => actions.entry.setDataFromJson)
+  const clearResponse = useStoreActions(
+    (action) => action.response.clearResponse
+  )
   const props = {
     accept: '.json',
     showUploadList: false,
     multiple: false,
     transformFile(file) {
       return new Promise((resolve) => {
+        clearResponse()
         const reader = new FileReader()
         reader.readAsText(file)
         reader.onprogress = () => {

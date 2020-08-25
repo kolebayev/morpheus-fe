@@ -1,7 +1,7 @@
 // финальная выборка для запроса
 // post, NMbr, GNdr, messages, startDate, endDate ...
 
-import { action, thunk } from 'easy-peasy'
+import { action } from 'easy-peasy'
 
 const requestModel = {
   // настройки для az.js из контролов
@@ -46,22 +46,22 @@ const requestModel = {
     state.word.GNdr = data
   }),
 
-  performRequest: thunk(async (actions, payload) => {
-    let data = JSON.stringify({ ...payload })
-    let response = await fetch('/analyze', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: data,
-    })
-    if (response.ok) {
-      let json = await response.json()
-      console.log('json.words', json.words)
-    } else {
-      console.log('Ошибка HTTP: ' + response.status)
-    }
-  }),
+  // performRequest: thunk(async (actions, payload) => {
+  //   let data = JSON.stringify({ ...payload })
+  //   let response = await fetch('/analyze', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //     },
+  //     body: data,
+  //   })
+  //   if (response.ok) {
+  //     let json = await response.json()
+  //     console.log('json.words', json.words)
+  //   } else {
+  //     console.log('Ошибка HTTP: ' + response.status)
+  //   }
+  // }),
 }
 
 export default requestModel

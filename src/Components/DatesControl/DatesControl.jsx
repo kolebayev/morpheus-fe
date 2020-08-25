@@ -54,9 +54,9 @@ export default function DateControl(props) {
   }
 
   return (
-    <>
+    <div>
       <div className="control_top-label">Период</div>
       <RangePicker {...rangePickerProps} />
-    </>
+    </div>
   )
 }

@@ -25,8 +25,13 @@ const entryModel = {
 
   // actions
   setDataFromJson: action((state, data) => {
-    let messages = data.messages
+    // обнуляем стейт перед повторным чтением файла
+    state.chat.length = 0
+    state.controls.users.length = 0
+    state.controls.dates.startDate = ''
+    state.controls.dates.endDate = ''
 
+    let messages = data.messages
     // удаляет сообщения без текста
     const clearFromEmptyStrings = (message) => message.text !== ''
     // преобразует сообщения со ссылками в строку
