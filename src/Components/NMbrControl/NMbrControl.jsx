@@ -1,9 +1,8 @@
 import React from 'react'
 import { Select } from 'antd'
+import { useStoreActions } from 'easy-peasy'
 import wordConfig from '../../utils/wordConfig'
 import './NMbrControl.scss'
-
-import { useStoreActions } from 'easy-peasy'
 
 export default function NMbrControl({ controlsSize }) {
   const { Option } = Select

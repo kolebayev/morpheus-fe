@@ -13,9 +13,6 @@ export default function ControlsPanel() {
   const controlsSize = 'default'
   const messagesOfAllUers = useStoreState((state) => state.entry.chat)
   const getUser = useStoreState((state) => state.request.userFilteredBy)
-  // const performRequest = useStoreActions(
-  //   (action) => action.request.performRequest
-  // )
   const rangeStart = useStoreState((state) => state.request.rangeStart)
   const rangeEnd = useStoreState((state) => state.request.rangeEnd)
   const word = useStoreState((state) => state.request.word)
@@ -56,18 +53,6 @@ export default function ControlsPanel() {
       console.log('Ошибка HTTP: ' + response.status)
       message.error('Ошибка HTTP: ' + response.status)
     }
-
-    // performRequest({
-    //   rangeStart: rangeStart,
-    //   rangeEnd: rangeEnd,
-    //   post: word.post,
-    //   NMbr: word.NMbr,
-    //   GNdr: word.GNdr,
-    //   filteredMessages: [...messagesOfAllUers].filter(
-    //     (message) =>
-    //       (message.from === getUser) & (typeof message.text === 'string')
-    //   ),
-    // })
   }
 
   return (
