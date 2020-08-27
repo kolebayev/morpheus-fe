@@ -1,3 +1,5 @@
+> [Demo](https://kolebayev.github.io/morpheus-fe/)  
+
 Morpheus provides words analysis for personal [chats exported from telegram](https://telegram.org/blog/export-and-more).
 Chats are exported from telegram desktop app in `json` format. Exported file has no need to be edited — app uses file as is.
 
