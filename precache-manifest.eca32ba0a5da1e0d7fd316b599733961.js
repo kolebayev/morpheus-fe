@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b87fad555569b0f013c8291d20c3ab0c",
+    "revision": "29d06c081c8a80981658e043b594d63c",
     "url": "/morpheus-fe/index.html"
   },
   {
-    "revision": "b918b3da91490974860c",
-    "url": "/morpheus-fe/static/css/main.f5b55c46.chunk.css"
+    "revision": "2c64922a3afac7b1b507",
+    "url": "/morpheus-fe/static/css/main.931b6d3b.chunk.css"
   },
   {
-    "revision": "70fcbdbe00e0cc5413fa",
-    "url": "/morpheus-fe/static/js/2.c1f6c61b.chunk.js"
+    "revision": "fd8ffecf617bd86042e5",
+    "url": "/morpheus-fe/static/js/2.6f413d0c.chunk.js"
   },
   {
     "revision": "db6251776d83a9b97a8ae2f1e6a03ac3",
-    "url": "/morpheus-fe/static/js/2.c1f6c61b.chunk.js.LICENSE.txt"
+    "url": "/morpheus-fe/static/js/2.6f413d0c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b918b3da91490974860c",
-    "url": "/morpheus-fe/static/js/main.4a0b2795.chunk.js"
+    "revision": "2c64922a3afac7b1b507",
+    "url": "/morpheus-fe/static/js/main.1a8fa1c0.chunk.js"
   },
   {
     "revision": "d7dafc9625007a2fb9c3",
