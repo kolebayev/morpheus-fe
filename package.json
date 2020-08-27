@@ -37,9 +37,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000",
   "devDependencies": {
     "craco-alias": "^2.1.1"
   },
-  "homepage": "https://kolebayev.github.io/morpheus"
+  "homepage": "https://kolebayev.github.io/morpheus-fe"
 }

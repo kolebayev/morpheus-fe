@@ -33,13 +33,16 @@ export default function ControlsPanel() {
           (message.from === getUser) & (typeof message.text === 'string')
       ),
     })
-    let response = await fetch('/analyze', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: data,
-    })
+    let response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/analyze`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: data,
+      }
+    )
     if (response.ok) {
       clearResponse()
       let json = await response.json()
