@@ -1,0 +1,19 @@
+.controls-panel {
+  display: flex;
+  flex-direction: column;
+  & > div {
+    margin-bottom: 12px;
+  }
+  &__row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    & > div {
+      margin-right: 12px;
+    }
+  }
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-in-range::before {
+  background: #c8c8c8 !important;
+}

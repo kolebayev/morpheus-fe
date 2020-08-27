@@ -6,7 +6,8 @@
     "antd": "^4.5.1",
     "craco": "0.0.3",
     "craco-less": "^1.17.0",
-    "date-fns": "^2.15.0",
+    "easy-peasy": "^3.3.1",
+    "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -33,5 +34,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8000",
+  "devDependencies": {
+    "craco-alias": "^2.1.1"
+  }
 }

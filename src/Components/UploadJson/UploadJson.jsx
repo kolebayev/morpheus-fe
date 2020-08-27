@@ -1,36 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Upload, Button, message } from 'antd'
-
 import JsonIcon from '../../Icons/JsonIcon'
 import './UploadJson.scss'
+import { useStoreActions } from 'easy-peasy'
 
-export default function UploadJson({
-  getDataFromUpload,
-  type,
-  doSetIsLoading,
-}) {
+export default function UploadJson({ type }) {
   const { Dragger } = Upload
-  const [fileName, setFileName] = useState('')
-
+  const setChat = useStoreActions((actions) => actions.entry.setDataFromJson)
+  const clearResponse = useStoreActions(
+    (action) => action.response.clearResponse
+  )
   const props = {
     accept: '.json',
     showUploadList: false,
     multiple: false,
     transformFile(file) {
-      setFileName(file.name)
       return new Promise((resolve) => {
+        clearResponse()
         const reader = new FileReader()
         reader.readAsText(file)
         reader.onprogress = () => {
           console.log('reading')
-          doSetIsLoading('true')
         }
         reader.onloadend = () => {
           let data = JSON.parse(reader.result)
-          Array.isArray(data.messages)
-            ? getDataFromUpload(data.messages)
-            : message.error('Ошибка в json файле')
-          doSetIsLoading('false')
+          if (('messages' in data) & (data.messages.length !== 0)) {
+            setChat(data)
+          } else {
+            message.error('Ошибка в json файле')
+          }
         }
         reader.onerror = () => {
           console.log(reader.error)
@@ -42,7 +40,6 @@ export default function UploadJson({
 
   const button = (
     <div className="upload_button">
-      <div className="upload_file-name">{fileName}</div>
       <Upload {...props}>
         <Button>Загрузить другой файл</Button>
       </Upload>
@@ -50,7 +47,7 @@ export default function UploadJson({
   )
 
   const area = (
-    <Dragger {...props} name={fileName}>
+    <Dragger {...props}>
       <div className="ant-upload-drag-icon">
         <JsonIcon />
       </div>

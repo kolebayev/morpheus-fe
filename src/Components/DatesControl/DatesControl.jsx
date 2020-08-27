@@ -1,77 +1,62 @@
-import React, { useState, useEffect } from 'react'
-import {
-  inputDateStyle,
-  formatDateForInput,
-} from '../../utils/formatDateForInput'
-import { compareAsc, parse } from 'date-fns'
+import React, { useEffect } from 'react'
 import './DatesControl.scss'
+import { DatePicker } from 'antd'
+import moment from 'moment'
+import 'moment/locale/ru'
+import locale from 'antd/es/date-picker/locale/ru_RU'
+import { useStoreState, useStoreActions } from 'easy-peasy'
 
-export default function DateControl({
-  defaultDates,
-  setStartDate,
-  setEndDate,
-}) {
-  const [minDate, setMinDate] = useState(null)
-  const [maxDate, setMaxDate] = useState(null)
-  const [minSelectedDate, setMinSelectedDate] = useState(minDate)
-  const [maxSelectedDate, setMaxSelectedDate] = useState(maxDate)
-  const [rangeError, setRangeError] = useState(false)
+export default function DateControl(props) {
+  const { RangePicker } = DatePicker
+  const { controlsSize } = props
+  const dateFormat = 'DD/MM/YYYY'
+  const start = useStoreState((state) => state.entry.controls.dates.startDate)
+  const end = useStoreState((state) => state.entry.controls.dates.endDate)
+  const setRangeStart = useStoreActions(
+    (actions) => actions.request.setRangeStart
+  )
+  const setRangeEnd = useStoreActions((actions) => actions.request.setRangeEnd)
+  const setRangeDateAsString = (date) => {
+    return moment(date).format(dateFormat)
+  }
+
+  // хук добавляет крайние даты в requestModel как рабочие
+  // на случай, если даты в RangePicker не поменяются юзером
+  // то есть при обновлении стейта после загрузки очередного jsonа
+  useEffect(() => {
+    console.log('dates control / effect / setRangeStart')
+    setRangeStart(setRangeDateAsString(start))
+  }, [start, setRangeStart])
 
   useEffect(() => {
-    setMinDate(defaultDates.min)
-    setMaxDate(defaultDates.max)
-    setMinSelectedDate(defaultDates.min)
-    setMaxSelectedDate(defaultDates.max)
-  }, [defaultDates])
+    console.log('dates control / effect / setRangeEnd')
+    setRangeEnd(setRangeDateAsString(end))
+  }, [end, setRangeEnd])
 
-  useEffect(() => {
-    setStartDate(minSelectedDate)
-  }, [minSelectedDate, setStartDate])
-
-  useEffect(() => {
-    setEndDate(maxSelectedDate)
-  }, [maxSelectedDate, setEndDate])
+  const rangePickerProps = {
+    disabledDate(current) {
+      return current && !moment(current).isBetween(start, end)
+    },
+    defaultValue: [
+      moment(moment(start), dateFormat),
+      moment(moment(end), dateFormat),
+    ],
+    format: dateFormat,
+    locale,
+    allowClear: false,
+    autoFocus: false,
+    size: controlsSize === 'default' ? 'middle' : 'large',
+    onCalendarChange([rangeStart, rangeEnd]) {
+      setRangeStart(setRangeDateAsString(rangeStart))
+      setRangeEnd(setRangeDateAsString(rangeEnd))
+    },
+    separator: '|',
+  }
 
   return (
-    <>
-      <div className="control">
-        <div className="control_top-label">Начало периода</div>
-        <input
-          className="control-date-input"
-          type="date"
-          defaultValue={formatDateForInput(minDate)}
-          min={formatDateForInput(minDate)}
-          max={formatDateForInput(maxDate)}
-          onChange={(e) => {
-            const thisDate = parse(e.target.value, inputDateStyle, new Date())
-            if (compareAsc(thisDate, maxSelectedDate) === 1) {
-              setRangeError(true)
-            } else {
-              setMinSelectedDate(thisDate)
-              setRangeError(false)
-            }
-          }}
-        ></input>
-      </div>
-      <div className="control">
-        <div className="control_top-label">Конец периода</div>
-        <input
-          className="control-date-input"
-          type="date"
-          defaultValue={formatDateForInput(maxDate)}
-          max={formatDateForInput(maxDate)}
-          min={formatDateForInput(minDate)}
-          onChange={(e) => {
-            const thisDate = parse(e.target.value, inputDateStyle, new Date())
-            if (compareAsc(minSelectedDate, thisDate) === 1) {
-              setRangeError(true)
-            } else {
-              setMaxSelectedDate(thisDate)
-              setRangeError(false)
-            }
-          }}
-        ></input>
-      </div>
-    </>
+    <div>
+      <div className="control_top-label">Период</div>
+      <RangePicker {...rangePickerProps} />
+    </div>
   )
 }

@@ -1,20 +1,21 @@
-import React from "react";
-import { Select } from "antd";
-import wordConfig from "../../utils/wordConfig";
-import "./NMbrControl.scss";
+import React from 'react'
+import { Select } from 'antd'
+import { useStoreActions } from 'easy-peasy'
+import wordConfig from '../../utils/wordConfig'
+import './NMbrControl.scss'
 
-export default function NMbrControl({ setValue, size }) {
-  const { Option } = Select;
-  const options = wordConfig.NMbr;
-
+export default function NMbrControl({ controlsSize }) {
+  const { Option } = Select
+  const options = wordConfig.NMbr
+  const setNMbr = useStoreActions((action) => action.request.setNMbr)
   return (
     <div className="NMbrControl control">
       <div className="control_top-label">Число</div>
       <Select
         defaultValue={options[0].value}
-        size={size}
+        size={controlsSize}
         style={{ width: 180 }}
-        onChange={(value) => setValue(value)}
+        onChange={(value) => setNMbr(value)}
       >
         {options.map((tag, i) => (
           <Option key={i} value={tag.value}>
@@ -23,5 +24,5 @@ export default function NMbrControl({ setValue, size }) {
         ))}
       </Select>
     </div>
-  );
+  )
 }
