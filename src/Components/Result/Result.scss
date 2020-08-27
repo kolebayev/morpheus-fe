@@ -1,0 +1,33 @@
+.result {
+  margin-top: 250px;
+  &_wrapper {
+    padding: 12px;
+    &:hover {
+      background-color: #EDF2F4;
+    }
+
+  }
+  &_stripe {
+    background-color: #fafafa;
+  }
+  button {
+    margin-right: 12px;
+  }
+  &_text {
+    // margin-bottom: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    &_date {
+      font-size: 10px;
+      margin-bottom: 2px;
+      opacity: .3;
+      width: 130px;
+    }
+    &_word {
+      font-size: 16px;
+      color: #000;
+      margin-left: 20px;
+    }
+  }
+}

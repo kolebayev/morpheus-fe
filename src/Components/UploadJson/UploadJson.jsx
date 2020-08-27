@@ -19,9 +19,8 @@ export default function UploadJson({ type }) {
         clearResponse()
         const reader = new FileReader()
         reader.readAsText(file)
-        reader.onprogress = () => {
-          console.log('reading')
-        }
+        // reader.onprogress = () => {
+        // }
         reader.onloadend = () => {
           let data = JSON.parse(reader.result)
           if (('messages' in data) & (data.messages.length !== 0)) {

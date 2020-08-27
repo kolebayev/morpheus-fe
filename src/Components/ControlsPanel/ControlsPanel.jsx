@@ -20,8 +20,11 @@ export default function ControlsPanel() {
   const clearResponse = useStoreActions(
     (action) => action.response.clearResponse
   )
+  const setIsLoadng = useStoreActions((action) => action.entry.setIsLoadng)
+  const isLoading = useStoreState((state) => state.entry.isLoading)
 
   const doRequest = async () => {
+    setIsLoadng(true)
     let data = JSON.stringify({
       rangeStart: rangeStart,
       rangeEnd: rangeEnd,
@@ -46,14 +49,13 @@ export default function ControlsPanel() {
     if (response.ok) {
       clearResponse()
       let json = await response.json()
-      console.log('json.words', json)
       if ('words' in json) {
         setResponse(json.words)
+        setIsLoadng(false)
       } else if ('message' in json) {
         message.info(json.message)
       }
     } else {
-      console.log('Ошибка HTTP: ' + response.status)
       message.error('Ошибка HTTP: ' + response.status)
     }
   }
@@ -68,7 +70,12 @@ export default function ControlsPanel() {
         <PosTagControl controlsSize={controlsSize} />
         <NMbrControl />
         <GNdrControl />
-        <Button type="primary" size="middle" onClick={() => doRequest()}>
+        <Button
+          type="primary"
+          size="middle"
+          onClick={() => doRequest()}
+          loading={isLoading ? true : false}
+        >
           Do morpheus
         </Button>
       </div>

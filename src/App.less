@@ -6,6 +6,12 @@ body {
 }
 
 .app {
+  &__mobile-warning {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+  }
   &_welcome {
     padding: 0px 20px;
     width: 100vw;
@@ -31,30 +37,6 @@ body {
   &__layout {
     max-width: 1024px;
     margin: 0 auto;
-  }
-
-  &__result {
-    margin-top: 250px;
-    &_text {
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: row;
-      align-items: baseline;
-      // &:last-child {
-      //   margin: 0
-      // }
-      &_date {
-        font-size: 10px;
-        margin-bottom: 2px;
-        opacity: .3;
-        width: 130px;
-      }
-      &_word {
-        font-size: 16px;
-        color: #000;
-        margin-left: 20px;
-      }
-    }
   }
 }
 

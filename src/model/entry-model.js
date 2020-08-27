@@ -67,6 +67,10 @@ const entryModel = {
     state.controls.dates.startDate = messages[0].date
     state.controls.dates.endDate = messages[messages.length - 1].date
   }),
+
+  setIsLoadng: action((state, bool) => {
+    state.isLoading = bool
+  }),
 }
 
 export default entryModel

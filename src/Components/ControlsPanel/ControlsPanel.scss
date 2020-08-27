@@ -4,6 +4,9 @@
   & > div {
     margin-bottom: 12px;
   }
+  &:last-child {
+    margin-bottom: 12px;
+  }
   &__row {
     display: flex;
     flex-direction: row;
