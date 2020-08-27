@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e8af56c073a80c3a5447cdf86358fbf3",
+    "revision": "b87fad555569b0f013c8291d20c3ab0c",
     "url": "/morpheus-fe/index.html"
   },
   {
